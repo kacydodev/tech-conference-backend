@@ -47,8 +47,8 @@ router.get('/', async (req: { query: QueryParams }, res) => {
 				 JOIN speakers s ON t.speaker_id = s.id
 			     INNER JOIN tracks tr ON t.track_id = tr.id
 	`
-	const talks = await env.tech_conference_db.prepare(query + whereClause).bind(...params).all()
-	res.json(talks)
+	const { results } = await env.tech_conference_db.prepare(query + whereClause).bind(...params).all()
+	res.json(results);
 });
 
 export default router;

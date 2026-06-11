@@ -12,8 +12,8 @@ router.get('/', async (req, res) => {
 
 	const whereClause = isFeatured ? " WHERE name NOT LIKE 'keynote'" : '';
 
-	const tracks = await env.tech_conference_db.prepare(`SELECT * FROM tracks${whereClause}`).all()
-	res.json(tracks)
+	const { results } = await env.tech_conference_db.prepare(`SELECT * FROM tracks${whereClause}`).all()
+	res.json(results);
 });
 
 export default router;

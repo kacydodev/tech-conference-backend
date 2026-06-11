@@ -19,8 +19,8 @@ router.get('/', async (req, res) => {
 			     INNER JOIN tracks tr ON t.track_id = tr.id
 			${whereClause}
 	`
-	const speakers = await env.tech_conference_db.prepare(query).all();
-	res.json(speakers);
+	const { results } = await env.tech_conference_db.prepare(query).all();
+	res.json(results);
 });
 
 router.get('/:id', async (req,res) => {
@@ -52,8 +52,8 @@ router.get('/:id', async (req,res) => {
                 FROM speakers s JOIN talks t ON s.id = t.speaker_id JOIN tracks tr ON t.track_id = tr.id
                 WHERE s.id = ?
 	`
-	const speaker = await env.tech_conference_db.prepare(query).bind(id).run();
-	res.json(speaker);
+	const { results } = await env.tech_conference_db.prepare(query).bind(id).run();
+	res.json(results);
 })
 
 export default router;

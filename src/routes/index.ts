@@ -20,7 +20,7 @@ router.get('/api/v1/conference', async (_, res) => {
 });
 
 router.get('/api/v1/keynote', async (_, res) => {
-	const keynote = await env.tech_conference_db.prepare(`
+	const { results } = await env.tech_conference_db.prepare(`
 		SELECT s.name,
 		       s.role,
 		       s.company,
@@ -33,7 +33,7 @@ router.get('/api/v1/keynote', async (_, res) => {
 			     JOIN speakers s ON t.speaker_id = s.id
 		LIMIT 1
 	`).all();
-	res.json(keynote);
+	res.json(results);
 })
 
 export default router;
