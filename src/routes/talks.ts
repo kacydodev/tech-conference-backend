@@ -51,4 +51,27 @@ router.get('/', async (req: { query: QueryParams }, res) => {
 	res.json(results);
 });
 
+router.get('/featured', async (req, res) => {
+	const query = `
+		SELECT t.id,
+		       t.title,
+		       t.description,
+		       t.location,
+		       t.day,
+		       t.start_time,
+		       t.end_time,
+		       s.name,
+		       s.company,
+		       tr.name AS track,
+		       tr.color
+		FROM talks t
+			     JOIN speakers s ON t.speaker_id = s.id
+			     INNER JOIN tracks tr ON t.track_id = tr.id
+		WHERE t.highlighted = 1
+		ORDER BY t.day
+	`
+	const { results } = await env.tech_conference_db.prepare(query).all()
+	res.json(results);
+})
+
 export default router;
