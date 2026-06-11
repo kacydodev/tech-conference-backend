@@ -1,6 +1,7 @@
 import express from 'express';
 import { httpServerHandler } from "cloudflare:node";
 import routes from './routes/index';
+import cors from 'cors';
 
 /**
  * Welcome to Cloudflare Workers! This is your first worker.
@@ -21,6 +22,7 @@ export interface Env {
 
 const app = express();
 
+app.use(cors())
 app.use(express.json())
 app.use(routes)
 
