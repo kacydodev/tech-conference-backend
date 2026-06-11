@@ -1,3 +1,7 @@
+import express from 'express';
+import { httpServerHandler } from "cloudflare:node";
+import routes from './routes/index';
+
 /**
  * Welcome to Cloudflare Workers! This is your first worker.
  *
@@ -11,8 +15,14 @@
  * Learn more at https://developers.cloudflare.com/workers/
  */
 
-export default {
-	async fetch(request, env, ctx): Promise<Response> {
-		return new Response("Hello World!");
-	},
-} satisfies ExportedHandler<Env>;
+export interface Env {
+	tech_conference_db: D1Database;
+}
+
+const app = express();
+
+app.use(express.json())
+app.use(routes)
+
+app.listen(8787)
+export default httpServerHandler({port: 8787});

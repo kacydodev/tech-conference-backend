@@ -13,6 +13,14 @@
 	"upload_source_maps": true,
 	"compatibility_flags": [
 		"nodejs_compat"
+	],
+	"d1_databases": [
+		{
+			"binding": "tech_conference_db",
+			"database_name": "tech-conference-db",
+			"database_id": "c3bf6e87-df09-4c84-ae1f-d9fe329ea31e",
+			"remote": true
+		}
 	]
 	/**
 	 * Smart Placement
